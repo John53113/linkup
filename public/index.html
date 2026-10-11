@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10121b">
+  <meta name="description" content="Linkup — video calls, walkie-talkie and chat.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <title>Linkup — Stay Connected</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10121b;--panel:#191c29;--panel2:#222638;--accent:#7868ff;--lav:#b7adff;--text:#f6f6ff;--muted:#a1a5bb;--border:#303448;--green:#53e0a1;--red:#ff7b88}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--lav);outline-offset:2px}
+    .app{min-height:100vh;display:flex}.sidebar{width:230px;padding:25px 16px;background:#131520;border-right:1px solid var(--border);display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:11px;margin:0 8px 30px}.brand-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:var(--accent);font-size:23px;font-weight:900}.brand-name{font-size:24px;font-weight:850;letter-spacing:-1px}.nav-label{margin:0 10px 12px;color:var(--muted);font-size:10px;letter-spacing:1.8px;font-weight:800}.nav-button{display:flex;align-items:center;gap:12px;width:100%;padding:12px 13px;margin-bottom:6px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);text-align:left}.nav-button:hover,.nav-button.active{background:#292545;color:white}.nav-button.active{border-color:#49416f}.nav-icon{width:23px;text-align:center;font-size:19px}.sidebar-note{margin-top:auto;padding:14px;border:1px solid var(--border);border-radius:13px;background:var(--panel);font-size:12px;color:var(--muted);line-height:1.6}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px}
+    main{flex:1;min-width:0;padding:32px clamp(16px,4vw,52px) 40px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:30px}.topbar h1{font-size:clamp(25px,4vw,34px);letter-spacing:-1px;margin:0}.topbar p{margin:6px 0 0;color:var(--muted);font-size:13px}.top-actions{display:flex;align-items:center;gap:9px}.icon-button{position:relative;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text)}.badge-count{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:10px;background:var(--red);font-size:10px;display:grid;place-items:center}.profile-chip{display:flex;align-items:center;gap:9px;padding:6px 11px 6px 6px;border:1px solid var(--border);border-radius:13px;background:var(--panel);font-size:12px}.avatar{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#45406f;font-weight:800;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+    .page{display:none}.page.active{display:block;animation:fade .18s ease-out}@keyframes fade{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}.hero{padding:clamp(24px,4vw,40px);border:1px solid #4b447b;border-radius:22px;background:linear-gradient(120deg,#292344,#202c49 75%,#243b54);margin-bottom:28px}.eyebrow{color:var(--lav);font-size:10px;font-weight:850;letter-spacing:2px}.hero h2{max-width:510px;font-size:clamp(29px,5vw,43px);line-height:1.13;letter-spacing:-1.5px;margin:13px 0}.hero p{max-width:470px;color:#c6c7dc;line-height:1.7;font-size:14px}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:28px 0 16px}.section-heading h2{margin:0;font-size:19px}.section-heading span{font-size:12px;color:var(--muted)}.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.feature,.panel{min-width:0;padding:22px;border:1px solid var(--border);border-radius:17px;background:var(--panel)}.feature-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#302a50;font-size:23px;margin-bottom:17px}.feature h3{margin:0 0 8px}.feature p,.muted{color:var(--muted);font-size:13px;line-height:1.7}.feature p{min-height:62px;margin:0 0 16px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:43px;padding:10px 16px;border:1px solid transparent;border-radius:11px;background:var(--accent);color:white;font-weight:750}.btn:hover{filter:brightness(1.1)}.btn.secondary{background:var(--panel2);border-color:var(--border)}.btn.danger{background:#4a252f;border-color:#75404b}.btn.full{width:100%}.btn:disabled{opacity:.5;cursor:not-allowed}.panel{padding:clamp(20px,4vw,32px)}.panel h2{margin:0 0 8px}.panel p{line-height:1.7}.field-label{display:block;margin:17px 0 7px;font-size:13px;color:#d8d9e9}.field{display:block;width:100%;padding:12px 13px;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:10px}.field::placeholder{color:#777c95}textarea.field{min-height:90px;resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}.notice{padding:12px 14px;margin-top:16px;border-radius:11px;background:#222638;color:#c4c5da;font-size:12px;line-height:1.65}.call-screen{min-height:190px;display:grid;place-items:center;text-align:center;padding:20px;background:#11131d;border:1px solid var(--border);border-radius:14px;margin:18px 0}.call-screen .symbol{font-size:48px}.call-screen h3{margin:8px 0 4px}.call-screen p{margin:0}.talk-button{display:grid;place-items:center;width:min(190px,60vw);aspect-ratio:1;margin:25px auto;border:8px solid #363052;border-radius:50%;background:var(--accent);color:white;font-size:48px;touch-action:none;user-select:none}.talk-button.pressing{background:#5142cc;transform:scale(.97)}.chat-log{min-height:140px;max-height:300px;overflow:auto;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--bg);margin:18px 0}.message{margin:8px 0;padding:10px 12px;border-radius:11px;background:var(--panel2);overflow-wrap:anywhere}.message small{display:block;color:var(--muted);margin-top:4px}.chat-form{display:flex;gap:9px}.chat-form .field{flex:1;min-width:0}.hidden{display:none!important}.status{font-size:13px;color:var(--lav);margin-top:12px}.error{color:var(--red)}.success{color:var(--green)}.notice-list{display:grid;gap:10px}.notice-item{padding:13px;border:1px solid var(--border);border-radius:11px;background:var(--bg)}.notice-item strong{display:block;margin-bottom:5px}.notice-item small{color:var(--muted)}footer{text-align:center;margin-top:34px;color:var(--muted);font-size:11px}
+    dialog{width:min(440px,calc(100% - 28px));padding:0;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:18px}dialog::backdrop{background:#050610c9;backdrop-filter:blur(4px)}.dialog-body{padding:24px}.dialog-body h2{margin-top:0}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.auth-shell{min-height:100vh;display:grid;place-items:center;padding:20px}.auth-card{width:min(430px,100%);padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--panel)}.auth-card .brand{margin:0 0 25px}.auth-tabs{display:flex;gap:7px;margin:20px 0}.auth-tabs .btn{flex:1}.small{font-size:12px;color:var(--muted);line-height:1.6}
+    @media(max-width:850px){.features{grid-template-columns:1fr}.feature p{min-height:0}.sidebar{width:190px}}
+    @media(max-width:600px){.app{display:block}.sidebar{position:sticky;top:0;z-index:5;width:100%;padding:10px 12px;border-right:0;border-bottom:1px solid var(--border)}.brand{margin:0 0 10px}.brand-icon{width:35px;height:35px}.brand-name{font-size:21px}.nav-label,.sidebar-note{display:none}.nav-list{display:flex;gap:5px;overflow-x:auto}.nav-button{flex:0 0 auto;width:auto;margin:0;padding:9px 10px;font-size:12px;gap:6px}.nav-icon{width:auto;font-size:15px}main{padding:22px 14px}.topbar{margin-bottom:23px}.profile-chip{padding:5px}.profile-name{display:none}.form-row{grid-template-columns:1fr}.chat-form{flex-wrap:wrap}.chat-form .field{flex-basis:100%}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <section id="auth-view" class="auth-shell">
+    <div class="auth-card">
+      <div class="brand"><div class="brand-icon">L</div><span class="brand-name">linkup</span></div>
+      <h1 id="auth-heading">Welcome to Linkup</h1>
+      <p class="muted">Sign in with your username and four-digit PIN, or create a new account.</p>
+      <div class="auth-tabs">
+        <button class="btn" id="tab-login" type="button">Sign in</button>
+        <button class="btn secondary" id="tab-register" type="button">Create account</button>
+      </div>
+      <form id="auth-form">
+        <label class="field-label" for="auth-name">Username</label>
+        <input class="field" id="auth-name" name="username" minlength="3" maxlength="24" autocomplete="username" pattern="[A-Za-z0-9_]+" required placeholder="3–24 letters, numbers or _">
+        <label class="field-label" for="auth-pin">Four-digit PIN</label>
+        <input class="field" id="auth-pin" name="pin" inputmode="numeric" type="password" minlength="4" maxlength="4" pattern="[0-9]{4}" autocomplete="current-password" required placeholder="••••">
+        <div id="display-name-wrap" class="hidden">
+          <label class="field-label" for="display-name">Display name</label>
+          <input class="field" id="display-name" maxlength="40" placeholder="What friends will see">
+        </div>
+        <button class="btn full" id="auth-submit" style="margin-top:20px" type="submit">Sign in</button>
+        <p id="auth-status" class="status" role="status"></p>
+      </form>
+      <p class="small">Choose a PIN you don't use for banking or other important accounts. Linkup accounts do not use email recovery in this starter version.</p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-icon">L</div><span class="brand-name">linkup</span></div>
+      <div class="nav-label">YOUR SPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-button active" data-page="home"><span class="nav-icon">⌂</span> Home</button>
+        <button class="nav-button" data-page="calls"><span class="nav-icon">◉</span> Video Calls</button>
+        <button class="nav-button" data-page="walkie"><span class="nav-icon">▣</span> Walkie-Talkie</button>
+        <button class="nav-button" data-page="chat"><span class="nav-icon">☰</span> Chat</button>
+        <button class="nav-button" data-page="profile"><span class="nav-icon">♙</span> Profile</button>
+        <button class="nav-button" data-page="notifications"><span class="nav-icon">♧</span> Alerts</button>
+      </nav>
+      <div class="sidebar-note"><span class="dot"></span><strong>Linkup</strong><br>Stay connected, wherever you are.</div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div><h1 id="page-title">Welcome to Linkup</h1><p id="page-subtitle">Good conversations start here.</p></div>
+        <div class="top-actions">
+          <button class="icon-button" id="notification-button" aria-label="Open notifications" title="Notifications">♧<span id="notification-count" class="badge-count hidden">0</span></button>
+          <div class="profile-chip"><div class="avatar" id="header-avatar">L</div><span id="header-name" class="profile-name">Your profile</span></div>
+        </div>
+      </header>
+
+      <section class="page active" id="home">
+        <div class="hero"><div class="eyebrow">YOUR PEOPLE. YOUR SPACE.</div><h2>Closer, wherever you are.</h2><p>Jump into a video call, talk with push-to-talk, or keep the conversation going in chat. Everything starts here.</p><button class="btn" data-go="calls">◉ &nbsp; Start a video call</button></div>
+        <div class="section-heading"><h2>Stay connected</h2><span>Choose how to talk</span></div>
+        <div class="features">
+          <article class="feature"><div class="feature-icon">📹</div><h3>Video Calls</h3><p>Connect face-to-face with friends.</p><button class="btn full" data-go="calls">Open calls →</button></article>
+          <article class="feature"><div class="feature-icon">📻</div><h3>Walkie-Talkie</h3><p>Push-to-talk voice conversations.</p><button class="btn secondary full" data-go="walkie">Open walkie-talkie →</button></article>
+          <article class="feature"><div class="feature-icon">💬</div><h3>Chat</h3><p>Keep the conversation moving with messages.</p><button class="btn secondary full" data-go="chat">Open chat →</button></article>
+        </div>
+        <div class="notice">Your account and profile are connected to the Linkup server. Calls, shared chat, live walkie-talkie audio, and server-sent push notifications require the remaining service integrations.</div>
+      </section>
+
+      <section class="page" id="calls"><div class="panel"><h2>📹 Video Calls</h2><p class="muted">Create a room or enter a room code. The call interface is ready for a WebRTC/signaling integration.</p><div class="call-screen"><div><div class="symbol">🎥</div><h3>Ready when you are</h3><p id="call-status" class="muted">Video calling service not connected yet.</p></div></div><label class="field-label" for="room-code">Room code</label><input class="field" id="room-code" maxlength="80" placeholder="Enter a room code"><button class="btn full" id="join-call" style="margin-top:12px">Join a call</button><button class="btn secondary full" id="create-call" style="margin-top:9px">Create a room</button><p id="call-message" class="status"></p><div class="notice">This starter does not yet transmit video or audio. We'll add the real-time calling layer separately.</div></div></section>
+
+      <section class="page" id="walkie"><div class="panel"><h2>📻 Walkie-Talkie</h2><p class="muted">Choose a channel, then press and hold to talk when the live audio service is connected.</p><label class="field-label" for="channel-code">Channel name</label><input class="field" id="channel-code" class="field" maxlength="50" placeholder="Example: friends"><button class="talk-button" id="talk-button" aria-label="Press and hold to talk">🎙</button><p id="talk-status" class="status" style="text-align:center">Live audio not connected</p><div class="notice">The button interaction is a demonstration only; it does not transmit microphone audio yet.</div></div></section>
+
+      <section class="page" id="chat"><div class="panel"><h2>💬 Chat</h2><p class="muted">Send a local test message. Shared real-time conversations will be enabled with a messaging service.</p><div class="chat-log" id="chat-log" aria-live="polite"><div class="message"><strong>Linkup</strong><div>Welcome! Your chat interface is ready.</div></div></div><form class="chat-form" id="chat-form"><input class="field" id="chat-input" maxlength="1000" placeholder="Write a message…" autocomplete="off" required><button class="btn" type="submit">Send</button></form><p class="small">Messages typed here are only displayed in this browser and are not delivered to other users yet.</p></div></section>
+
+      <section class="page" id="profile"><div class="panel"><h2>♙ Your profile</h2><p class="muted">Edit the profile information other Linkup users will see.</p><form id="profile-form"><label class="field-label" for="profile-username">Username (account sign-in)</label><input class="field" id="profile-username" disabled><label class="field-label" for="profile-display">Display name</label><input class="field" id="profile-display" maxlength="40" required><label class="field-label" for="profile-status">Status / bio</label><textarea class="field" id="profile-status" maxlength="160" placeholder="A little about you…"></textarea><label class="field-label" for="profile-avatar">Avatar image URL (optional)</label><input class="field" id="profile-avatar" type="url" maxlength="500" placeholder="https://example.com/avatar.png"><p class="small">Use an image URL you trust. A future version can support direct image uploads.</p><button class="btn" type="submit">Save profile</button><p id="profile-message" class="status" role="status"></p></form><hr style="border:0;border-top:1px solid var(--border);margin:26px 0"><button class="btn secondary" id="enable-notifications">Enable browser notifications</button><p id="permission-status" class="small"></p><button class="btn danger" id="logout-button" style="margin-top:14px">Sign out</button></div></section>
+
+      <section class="page" id="notifications"><div class="panel"><h2>♧ Notifications</h2><p class="muted">Alerts shown by this Linkup app on this device.</p><div id="notification-list" class="notice-list"><p class="muted">No notifications yet.</p></div><button class="btn secondary" id="clear-notifications" style="margin-top:18px">Clear notifications</button><div class="notice">Browser notifications can be enabled from your profile. Push delivery while the app is closed requires push sending to be configured on the server.</div></div></section>
+      <footer>Linkup · Stay connected</footer>
+    </main>
+  </div>
+
+  <script>
+(() => {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  let authMode = "login", profile = null, unread = 0, notices = [];
+  const titles = {
+    home:["Welcome to Linkup","Good conversations start here."],
+    calls:["Video Calls","Face-to-face starts with a room."],
+    walkie:["Walkie-Talkie","Quick voice conversations."],
+    chat:["Chat","Keep the conversation going."],
+    profile:["Your Profile","Make Linkup yours."],
+    notifications:["Notifications","Your latest Linkup alerts."]
+  };
+
+  async function api(path, options={}) {
+    const response = await fetch("/api" + path, {
+      method: options.method || "GET",
+      headers: {"Content-Type":"application/json", ...(options.headers || {})},
+      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+      credentials:"same-origin"
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Something went wrong. Please try again.");
+    return data;
+  }
+  function showDialog(title, message) {
+    $("dialog-title").textContent = title;
+    $("dialog-message").textContent = message;
+    $("alert-dialog").showModal();
+  }
+  function setAuthMode(mode) {
+    authMode = mode;
+    $("auth-heading").textContent = mode === "login" ? "Welcome to Linkup" : "Create your Linkup account";
+    $("auth-submit").textContent = mode === "login" ? "Sign in" : "Create account";
+    $("tab-login").classList.toggle("secondary", mode !== "login");
+    $("tab-register").classList.toggle("secondary", mode !== "register");
+    $("display-name-wrap").classList.toggle("hidden", mode !== "register");
+    $("auth-pin").autocomplete = mode === "login" ? "current-password" : "new-password";
+    $("auth-status").textContent = "";
+  }
+  function switchPage(page) {
+    if (!$(page)) return;
+    document.querySelectorAll(".page").forEach(el => el.classList.toggle("active", el.id === page));
+    document.querySelectorAll(".nav-button").forEach(el => el.classList.toggle("active", el.dataset.page === page));
+    $("page-title").textContent = titles[page][0];
+    $("page-subtitle").textContent = titles[page][1];
+  }
+  function updateHeader() {
+    if (!profile) return;
+    $("header-name").textContent = profile.displayName || profile.username;
+    $("profile-name").textContent = profile.displayName || profile.username;
+    $("profile-username").value = profile.username || "";
+    $("profile-display").value = profile.displayName || profile.username || "";
+    $("profile-status").value = profile.status || "";
+    $("profile-avatar").value = profile.avatarUrl || "";
+    const avatar = $("header-avatar");
+    avatar.replaceChildren();
+    if (profile.avatarUrl) {
+      const img = new Image();
+      img.alt = "";
+      img.referrerPolicy = "no-referrer";
+      img.src = profile.avatarUrl;
+      img.onerror = () => { avatar.textContent = (profile.displayName || profile.username || "L").slice(0,1).toUpperCase(); };
+      avatar.appendChild(img);
+    } else avatar.textContent = (profile.displayName || profile.username || "L").slice(0,1).toUpperCase();
+  }
+  function renderNotices() {
+    const list = $("notification-list");
+    list.replaceChildren();
+    if (!notices.length) {
+      const empty = document.createElement("p"); empty.className = "muted"; empty.textContent = "No notifications yet."; list.appendChild(empty);
+    } else notices.slice().reverse().forEach(item => {
+      const card = document.createElement("div"); card.className = "notice-item";
+      const title = document.createElement("strong"); title.textContent = item.title;
+      const body = document.createElement("div"); body.textContent = item.body;
+      const time = document.createElement("small"); time.textContent = item.time;
+      card.append(title, body, time); list.appendChild(card);
+    });
+    $("notification-count").textContent = String(unread);
+    $("notification-count").classList.toggle("hidden", unread < 1);
+  }
+  function notify(title, body, browser=false) {
+    const item = {title, body, time:new Date().toLocaleString()};
+    notices.push(item); if (notices.length > 30) notices.shift();
+    unread++; renderNotices();
+    if (browser && "Notification" in window && Notification.permission === "granted") {
+      try { new Notification(title, {body, icon:"/icon.svg", tag:"linkup-notice"}); } catch (_) {}
+    }
+  }
+  async function enableBrowserNotifications() {
+    if (!("Notification" in window)) { $("permission-status").textContent = "This browser does not support notifications."; return; }
+    try {
+      const permission = await Notification.requestPermission();
+      $("permission-status").textContent = permission === "granted" ? "Browser notifications enabled on this device." : "Notification permission was not granted.";
+      if (permission === "granted") notify("Notifications enabled","Linkup can show browser alerts on this device.");
+    } catch (_) { $("permission-status").textContent = "Could not request notification permission."; }
+  }
+  async function showApp() {
+    $("auth-view").classList.add("hidden"); $("app-view").classList.remove("hidden");
+    updateHeader(); switchPage("home");
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }
+  async function checkSession() {
+    try {
+      const data = await api("/me"); profile = data.user; await showApp();
+    } catch (_) {
+      $("app-view").classList.add("hidden"); $("auth-view").classList.remove("hidden");
+    }
+  }
+  $("tab-login").addEventListener("click", () => setAuthMode("login"));
+  $("tab-register").addEventListener("click", () => setAuthMode("register"));
+  $("auth-form").addEventListener("submit", async event => {
+    event.preventDefault();
+    const username = $("auth-name").value.trim();
+    const pin = $("auth-pin").value;
+    const displayName = $("display-name").value.trim();
+    if (!/^[A-Za-z0-9_]{3,24}$/.test(username)) { $("auth-status").textContent = "Use 3–24 letters, numbers or underscores for the username."; return; }
+    if (!/^[0-9]{4}$/.test(pin)) { $("auth-status").textContent = "Enter exactly four digits."; return; }
+    $("auth-submit").disabled = true; $("auth-status").textContent = "Please wait…";
+    try {
+      const data = await api(authMode === "login" ? "/login" : "/register", {method:"POST", body:{username, pin, displayName}});
+      profile = data.user; $("auth-pin").value = ""; $("auth-status").textContent = "";
+      await showApp(); notify("Welcome to Linkup", "You're signed in.");
+    } catch (error) { $("auth-status").textContent = error.message; $("auth-status").classList.add("error"); }
+    finally { $("auth-submit").disabled = false; }
+  });
+  document.querySelectorAll("[data-page]").forEach(button => button.addEventListener("click", () => switchPage(button.dataset.page)));
+  document.querySelectorAll("[data-go]").forEach(button => button.addEventListener("click", () => switchPage(button.dataset.go)));
+  $("notification-button").addEventListener("click", () => { unread = 0; renderNotices(); switchPage("notifications"); });
+  $("profile-form").addEventListener("submit", async event => {
+    event.preventDefault();
+    const displayName = $("profile-display").value.trim();
+    const status = $("profile-status").value.trim();
+    const avatarUrl = $("profile-avatar").value.trim();
+    if (!displayName) { $("profile-message").textContent = "Display name cannot be empty."; return; }
+    if (avatarUrl && !/^https:\/\//i.test(avatarUrl)) { $("profile-message").textContent = "Avatar URLs must use HTTPS."; return; }
+    try {
+      const data = await api("/profile", {method:"PATCH", body:{displayName, status, avatarUrl}});
+      profile = data.user; updateHeader(); $("profile-message").textContent = "Profile saved."; $("profile-message").className = "status success";
+      notify("Profile updated","Your Linkup profile was saved.");
+    } catch (error) { $("profile-message").textContent = error.message; $("profile-message").className = "status error"; }
+  });
+  $("enable-notifications").addEventListener("click", enableBrowserNotifications);
+  $("logout-button").addEventListener("click", async () => {
+    try { await api("/logout", {method:"POST", body:{}}); } catch (_) {}
+    profile = null; $("app-view").classList.add("hidden"); $("auth-view").classList.remove("hidden"); setAuthMode("login");
+  });
+  $("dialog-close").addEventListener("click", () => $("alert-dialog").close());
+  $("clear-notifications").addEventListener("click", () => { notices = []; unread = 0; renderNotices(); });
+  $("join-call").addEventListener("click", () => {
+    const code = $("room-code").value.trim();
+    $("call-message").textContent = code ? "Room code saved for the future calling integration. Live calls are not connected yet." : "Enter a room code first.";
+  });
+  $("create-call").addEventListener("click", () => {
+    const code = crypto.randomUUID().replaceAll("-","").slice(0,8).toUpperCase();
+    $("room-code").value = code;
+    $("call-message").textContent = "Room code created: " + code + ". Share it once the calling service is connected.";
+    notify("Call room created","Room code: " + code);
+  });
+  const talk = $("talk-button");
+  const pressStart = event => { event.preventDefault(); talk.classList.add("pressing"); $("talk-status").textContent = "Pressed — live audio is not connected"; };
+  const pressEnd = () => { talk.classList.remove("pressing"); $("talk-status").textContent = "Ready — live audio is not connected"; };
+  talk.addEventListener("pointerdown", pressStart); talk.addEventListener("pointerup", pressEnd);
+  talk.addEventListener("pointercancel", pressEnd); talk.addEventListener("pointerleave", pressEnd);
+  $("chat-form").addEventListener("submit", event => {
+    event.preventDefault(); const input = $("chat-input"); const text = input.value.trim(); if (!text) return;
+    const msg = document.createElement("div"); msg.className = "message";
+    const who = document.createElement("strong"); who.textContent = profile?.displayName || profile?.username || "You";
+    const body = document.createElement("div"); body.textContent = text;
+    const time = document.createElement("small"); time.textContent = new Date().toLocaleTimeString();
+    msg.append(who, body, time); $("chat-log").appendChild(msg); $("chat-log").scrollTop = $("chat-log").scrollHeight; input.value = "";
+  });
+  renderNotices(); setAuthMode("login"); checkSession();
+})();
+</script>
+<dialog id="alert-dialog"><div class="dialog-body"><h2 id="dialog-title">Linkup</h2><p id="dialog-message"></p><div class="dialog-actions"><button class="btn" id="dialog-close">OK</button></div></div></dialog>
+</body>
+</html>
